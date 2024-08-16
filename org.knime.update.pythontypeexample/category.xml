@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature id="org.knime.features.pythontypeexample" version="0.0.0">
+       <category name="knime-pythontypeexample" />
+   </feature>
+   <feature id="org.knime.features.pythontypeexample.source" version="0.0.0">
+       <category name="knime-pythontypeexample" />
+   </feature>
+
+   <category-def name="knime-pythontypeexample" label="Build artifacts from knime-pythontypeexample">
+       <description>KNIME pythontypeexample Extension</description>
+   </category-def>
+</site>

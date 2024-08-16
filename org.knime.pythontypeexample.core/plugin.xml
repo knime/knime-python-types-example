@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension point="org.knime.core.DataType">
+      <DataType cellClass="org.knime.pythontypeexample.core.ExampleDataCell">
+         <serializer
+               cellClass="org.knime.pythontypeexample.core.ExampleDataCell"
+               serializerClass="org.knime.pythontypeexample.core.ExampleDataCell$CellSerializer">
+         </serializer>
+         <ValueFactory
+               deprecated="false"
+               valueFactoryClass="org.knime.pythontypeexample.core.ExampleValueFactory">
+         </ValueFactory>
+      </DataType>
+   </extension>
+   
+</plugin>
