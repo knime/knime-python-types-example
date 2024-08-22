@@ -1,7 +1,7 @@
 #!groovy
 def BN = (BRANCH_NAME == 'master' || BRANCH_NAME.startsWith('releases/')) ? BRANCH_NAME : 'releases/2023-10'
 
-library "knime-pipeline@$BN"
+library "knime-pipeline@todo/DEVOPS-2151-workflow-tests-default-mac-os-arm"
 
 static final String DEFAULT_WF_TESTS_PYTHON_ENV = 'env_py39_kn47.yml'
 
