@@ -2,9 +2,9 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: KNIME pythontypeexample types for Python
 Bundle-SymbolicName: org.knime.pythontypeexample.python;singleton:=true
-Bundle-Version: 5.2.0.qualifier
+Bundle-Version: 5.5.0.qualifier
 Bundle-Vendor: KNIME AG, Zurich, Switzerland
-Bundle-RequiredExecutionEnvironment: JavaSE-11
+Bundle-RequiredExecutionEnvironment: JavaSE-17
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.knime.pythontypeexample.core;bundle-version="[5.0.0,6.0.0)",
  org.knime.python3.types;bundle-version="[5.5.0,6.0.0)"

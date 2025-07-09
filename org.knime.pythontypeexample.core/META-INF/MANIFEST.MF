@@ -2,12 +2,12 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: KNIME pythontypeexample core plugin that among other things defines pythontypeexample data types.
 Bundle-SymbolicName: org.knime.pythontypeexample.core;singleton:=true
-Bundle-Version: 5.3.0.qualifier
+Bundle-Version: 5.5.0.qualifier
 Bundle-ClassPath: knime-pythontypeexample-core.jar
 Bundle-Vendor: KNIME AG, Zurich, Switzerland
 Require-Bundle: org.knime.core;bundle-version="[5.5.0,6.0.0)",
  org.knime.core.table;bundle-version="[5.5.0,6.0.0)",
  org.apache.commons.lang3;bundle-version="[3.9.0,4.0.0)"
-Bundle-RequiredExecutionEnvironment: JavaSE-11
+Bundle-RequiredExecutionEnvironment: JavaSE-17
 Bundle-ActivationPolicy: lazy
 Export-Package: org.knime.pythontypeexample.core
