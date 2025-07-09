@@ -27,6 +27,8 @@
 	<modules>
         <module>org.knime.pythontypeexample.core</module>
 		<module>org.knime.pythontypeexample.python</module>
+		<module>org.knime.pythonportexample.core</module>
+		<module>org.knime.pythonportexample.python</module>
 		<module>org.knime.features.pythontypeexample</module>
 		<module>org.knime.update.pythontypeexample</module>
 	</modules>

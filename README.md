@@ -1,4 +1,4 @@
-# ![Image](https://www.knime.com/files/knime_logo_github_40x40_4layers.png) KNIME® - Python Extension Data Type Example
+# KNIME® - Python Extension Data Type Example
 
 This is an example of how to add a new data type to the columnar backend (KNIME's Java side) and Python,
 so that it can be used in Python scripts in the KNIME AP and in pure-Python KNIME nodes.
@@ -70,6 +70,39 @@ The Java and Python `ValueFactory`s must be registered at their respective exten
       given `modulePath`. It can contain many `PythonValueFactory`s.
     * Each `PythonValueFactory` makes one data type available to use in Python.
 
+## KNIME port types in Python Pure-Python Custom Port Type Example
+
+This repository also contains an example of how to define and use a custom port type entirely in Python for KNIME nodes, located in the `pure-python-ports/` directory.
+
+### What is a Pure-Python Port Type?
+A pure-Python port type allows you to define new data exchange formats between nodes without any Java implementation. This is useful for rapid prototyping or for Python-only extensions.
+
+### Example: Box3D Port Type
+The example implements a simple `Box3D` port type, representing a 3D box with width, height, and depth. It includes:
+
+- `Box3DSpec`: The port object spec, which could hold metadata (here, just a label)
+- `Box3DPortObject`: The port object, which holds the box dimensions
+- Nodes to create and consume the `Box3D` port object
+
+#### Usage
+- The `Box3D Creator` node creates a `Box3D` port object from user parameters.
+- The `Box3D Volume` node takes a `Box3D` port object as input and outputs a table with the computed volume.
+
+See the `pure-python-ports/README.md` and `pure-python-ports/EXAMPLE.md` for details and code listings.
+
+For more details on custom port types, see the examples in the `knime-python-nodes-testing` repository.
+
+## Java/Python Hybrid Port Type Example
+
+A cross-language port type example is provided in the `ports/` directory. This demonstrates how to implement a custom port type (here, a 3D bounding box) with both a Java ValueFactory and a Python ValueFactory, allowing seamless data exchange between Java and Python nodes in KNIME.
+
+- The Java implementation is in `ports/java/BoundingBoxPortObject.java` and `BoundingBoxValueFactory.java`.
+- The Python implementation is in `ports/python/bounding_box_port.py` and `bounding_box_nodes.py`.
+- Both implementations use the same serialization format (three doubles for width, height, depth).
+- The port type is registered in both the Java and Python plugin.xml files, referencing the same ValueFactory.
+
+This is similar to the Databricks port object, but for a minimal bounding box example.
+
 ## Repository Content
 
 The contents of this repository contain a project with an example data type that behaves like a 3D box,
@@ -91,3 +124,4 @@ The code is organized as follows:
 ## Join the Community
 
 * [KNIME Forum](https://forum.knime.com/c/community-extensions/)
+

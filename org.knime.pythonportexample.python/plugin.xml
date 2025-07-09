@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+    <extension point="org.knime.python3.types.PythonPortObjectConverter">
+        <Module modulePath="src/main/python" moduleName="knime.ports.boundingbox">
+            <KnimeToPythonPortObjectConverter
+                JavaConverterClass="org.knime.pythonportexample.core.BoundingBoxPortObjectConverter"
+                PythonConverterClass="BoundingBoxPortConverter">
+            </KnimeToPythonPortObjectConverter>
+            <PythonToKnimePortObjectConverter
+                JavaConverterClass="org.knime.pythonportexample.core.BoundingBoxPortObjectConverter"
+                PythonConverterClass="BoundingBoxPortConverter">
+            </PythonToKnimePortObjectConverter>
+        </Module>
+    </extension>
+</plugin>
