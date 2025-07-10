@@ -5,6 +5,6 @@ extension_module: bounding_box_nodes # The .py Python module containing the node
 description: Bounding Box Port Object Nodes
 long_description: This extension showcases how a port object can be communicated back and forth between Java and Python
 group_id: org.knime.python3.types
-version: 0.1.0
+version: 5.6.0
 vendor: KNIME AG, Zurich, Switzerland
 license_file: ../../../LICENSE.TXT

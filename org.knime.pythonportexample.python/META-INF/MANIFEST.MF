@@ -2,12 +2,12 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: KNIME pythonportexample port definition and converter in Python
 Bundle-SymbolicName: org.knime.pythonportexample.python;singleton:=true
-Bundle-Version: 5.5.0.qualifier
+Bundle-Version: 5.6.0.qualifier
 Bundle-Vendor: KNIME AG, Zurich, Switzerland
 Bundle-RequiredExecutionEnvironment: JavaSE-17
 Bundle-ActivationPolicy: lazy
-Require-Bundle: org.knime.pythonportexample.core;bundle-version="[5.0.0,6.0.0)",
- org.knime.python3.types;bundle-version="[5.5.0,6.0.0)"
+Require-Bundle: org.knime.pythonportexample.core;bundle-version="[5.6.0,6.0.0)",
+ org.knime.python3.types;bundle-version="[5.6.0,6.0.0)"
 Automatic-Module-Name: org.knime.pythonportexample.python
 Eclipse-RegisterBuddy: org.knime.ext.py4j
 Eclipse-BundleShape: dir
