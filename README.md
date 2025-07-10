@@ -1,9 +1,9 @@
-# KNIME® - Python Extension Data Type Example
+# KNIME - Examples for extending KNIME's data and port types in Python
+
+## KNIME Extension Data Types in Java and Python
 
 This is an example of how to add a new data type to the columnar backend (KNIME's Java side) and Python,
 so that it can be used in Python scripts in the KNIME AP and in pure-Python KNIME nodes.
-
-## KNIME Extension Data Types in Java and Python
 
 Tabular data is passed between the KNIME AP and Python using files on disk in the Apache Arrow IPC format.
 This is the exact format, that KNIME's columnar table backend uses, which is the reason why tables are always
@@ -70,40 +70,42 @@ The Java and Python `ValueFactory`s must be registered at their respective exten
       given `modulePath`. It can contain many `PythonValueFactory`s.
     * Each `PythonValueFactory` makes one data type available to use in Python.
 
-## KNIME port types in Python Pure-Python Custom Port Type Example
+## KNIME PortObject conversion between Java and Python (experimental)
 
-This repository also contains an example of how to define and use a custom port type entirely in Python for KNIME nodes, located in the `pure-python-ports/` directory.
+`PortObject`s are the containers that transport data between KNIME nodes, and `PortObjectSpecs` ship the specifications that are already available after running `configure()`. The most prominent implementation of the PortObject is a table, which in KNIME terms is called a `BufferedDataTable` with the corresponding `DataTableSpec`. Other examples are trained models, DB connections or images, which you can visually distinguish by the square port at a KNIME node with a dedicated color per port.
 
-### What is a Pure-Python Port Type?
-A pure-Python port type allows you to define new data exchange formats between nodes without any Java implementation. This is useful for rapid prototyping or for Python-only extensions.
+It was possible for a long time already to build custom `PortObject`s in Java. These also get registered at an extension point (similar to the type example above). They need to consist of a `PortObject` and a `PortObjectSpec`, have a serializer, and need to have a color and a name for display. 
 
-### Example: Box3D Port Type
-The example implements a simple `Box3D` port type, representing a 3D box with width, height, and depth. It includes:
+For pure-Python KNIME nodes, dedicated `PortObjects` can be created that can be read and written by Python-nodes only. This is useful for e.g. all nodes of a Python-based extension that work with the same topic. See https://docs.knime.com/latest/pure_python_node_extensions_guide/index.html#_node_port_configuration for more details.
 
-- `Box3DSpec`: The port object spec, which could hold metadata (here, just a label)
-- `Box3DPortObject`: The port object, which holds the box dimensions
-- Nodes to create and consume the `Box3D` port object
+Since KNIME AP 5.5 there is experimental support for using `PortObject`s  from Java also in Python, and in 5.6 we fixed a few issues so that we can also create those `PortObject`s in Python and send them to Java. To accomplish that cross-language communication, there must be an `Encoder` on the sender and a `Decoder` on the other side with an intermediate representation that can currently be a `StringIntermediateRepresentation` or an `EmptyIntermediateRepresentation` if no data needs to be sent over (e.g. for an empty spec, or an authentication `PortObject` without data). These `Encoder`s and `Decoders` get registered as `Converter`s at the `org.knime.python3.types.PythonPortObjectConverter` extension point like so
 
-#### Usage
-- The `Box3D Creator` node creates a `Box3D` port object from user parameters.
-- The `Box3D Volume` node takes a `Box3D` port object as input and outputs a table with the computed volume.
+```xml
+    <extension point="org.knime.python3.types.PythonPortObjectConverter">
+        <Module modulePath="src/main/python" moduleName="knime.ports.boundingbox">
+            <KnimeToPythonPortObjectConverter
+                JavaConverterClass="org.knime.pythonportexample.core.BoundingBoxPortObjectConverter"
+                PythonConverterClass="BoundingBoxPortConverter">
+            </KnimeToPythonPortObjectConverter>
+            <PythonToKnimePortObjectConverter
+                JavaConverterClass="org.knime.pythonportexample.core.BoundingBoxPortObjectConverter"
+                PythonConverterClass="BoundingBoxPortConverter">
+            </PythonToKnimePortObjectConverter>
+        </Module>
+    </extension>
+```
 
-See the `pure-python-ports/README.md` and `pure-python-ports/EXAMPLE.md` for details and code listings.
+As you can see, there is a `modulePath` which will be put on the `PYTHONPATH`, and from there the import `knime.ports.boundingbox` is loaded, which means on disk the `modulePath` must contain `<modulePath>/knime/ports/boundingbox.py` which in turn contains a class named `BoundingBoxPortConverter`. On the Java side, we specify the path to the converter with its fully qualified name `org.knime.pythonportexample.core.BoundingBoxPortObjectConverter`.
 
-For more details on custom port types, see the examples in the `knime-python-nodes-testing` repository.
+> **Note:** This is functionality is still experimental and might change in the future.
 
-## Java/Python Hybrid Port Type Example
+The example in this repo here is a _Bounding Box_ `PortObject` that contains min and max `x`, `y`, and `z` coordinates. There is one Java-based node that can create a bounding box, and two Python based nodes that can work with and modify this `PortObject`.
 
-A cross-language port type example is provided in the `ports/` directory. This demonstrates how to implement a custom port type (here, a 3D bounding box) with both a Java ValueFactory and a Python ValueFactory, allowing seamless data exchange between Java and Python nodes in KNIME.
+The `BoundingBoxPortObjectConverter` converter uses a `StringIntermediateRepresentation` for the `PortObject` content where all coordinates get serialized to JSON. As we want to be able to send these `PortObject` from Java to Python and back, we need to implement an `Encoder` and a `Decoder` on both sides.
 
-- The Java implementation is in `ports/java/BoundingBoxPortObject.java` and `BoundingBoxValueFactory.java`.
-- The Python implementation is in `ports/python/bounding_box_port.py` and `bounding_box_nodes.py`.
-- Both implementations use the same serialization format (three doubles for width, height, depth).
-- The port type is registered in both the Java and Python plugin.xml files, referencing the same ValueFactory.
+> **Note:** `PortObject`s still have an old-school Java view that is used here to show the min and max of the bounding box, implemented in the `getViews` method on the Java side.
 
-This is similar to the Databricks port object, but for a minimal bounding box example.
-
-## Repository Content
+# Repository Content
 
 The contents of this repository contain a project with an example data type that behaves like a 3D box,
 it has width, height and depth and provides methods to compute its volume.
@@ -113,15 +115,17 @@ The code is organized as follows:
 * `org.knime.features.pythontypeexample`: The feature that bundles the Java and Python type plugins and which should be included as dependency into your code if you are working with the pythontypeexample data types.
 * `org.knime.pythontypeexample.core`: The plugin that implements the Java type implementation.
 * `org.knime.pythontypeexample.python`: The plugin that contains the Python type implementation.
+* `org.knime.pythonportexample.core`: implements the Java side of the PortObject and a Java node that uses it
+* `org.knime.pythonportexample.python`: contains the Python PortObject implementation and Python nodes that use it
 * `org.knime.update.pythontypeexample`: The plugin that builds an update site so that the feature can be installed from within KNIME
 
 
-## Development Notes
+# Development Notes
 
 * For more examples of Java `ValueFactory`s, please see e.g. https://bitbucket.org/KNIME/knime-base/src/master/org.knime.time/src/org/knime/core/data/v2/time/
 * For more examples of the Python implementations, please see https://bitbucket.org/KNIME/knime-python/src/master/org.knime.python3.arrow.types/plugin.xml
 
-## Join the Community
+# Join the Community
 
 * [KNIME Forum](https://forum.knime.com/c/community-extensions/)
 
