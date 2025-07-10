@@ -4,9 +4,9 @@ from typing import Sequence
 from dataclasses import dataclass
 
 
-@dataclass(frozen=True)
+@dataclass()
 class Point3D:
-    """Immutable 3D point for bounding box corners."""
+    """3D point for bounding box corners."""
 
     x: float
     y: float

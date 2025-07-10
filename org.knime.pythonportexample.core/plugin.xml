@@ -13,4 +13,9 @@
             specSerializer="org.knime.pythonportexample.core.BoundingBoxPortObjectSpec$Serializer">
       </portType>
    </extension>
+   <extension point="org.knime.workbench.repository.nodes">
+        <node
+            category-path="/community"
+            factory-class="org.knime.pythonportexample.core.node.BoundingBoxCreatorNodeFactory" />
+    </extension>
 </plugin>

@@ -25,6 +25,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  *
  * The {@link BoundingBoxPortObjectSpec} is converted via an {@link EmptyIntermediateRepresentation} because it doesn't
  * contain any information that needs to be communicated.
+ *
+ * @author Carsten Haubold, KNIME GmbH, Konstanz, Germany
  */
 @SuppressWarnings("restriction")
 public class BoundingBoxPortObjectConverter

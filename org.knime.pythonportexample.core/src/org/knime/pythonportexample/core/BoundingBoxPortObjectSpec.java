@@ -10,6 +10,8 @@ import org.knime.core.node.port.AbstractSimplePortObjectSpec;
 /**
  * The BoundingBoxPortObjectSpec does not contain any specific info, as the
  * min and max coordinates of the bounding box are part of the PortObject.
+ *
+ * @author Carsten Haubold, KNIME GmbH, Konstanz, Germany
  */
 public class BoundingBoxPortObjectSpec extends AbstractSimplePortObjectSpec {
 

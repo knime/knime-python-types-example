@@ -9,12 +9,21 @@ import org.knime.core.node.ModelContentRO;
 import org.knime.core.node.ModelContentWO;
 import org.knime.core.node.port.AbstractSimplePortObject;
 import org.knime.core.node.port.PortObjectSpec;
+import org.knime.core.node.port.PortType;
+import org.knime.core.node.port.PortTypeRegistry;
 
 /**
  * A KNIME PortObject representing a 3D bounding box defined by two points (min and max).
  * The bounding box is serialized as two Point3D records (min and max).
+ *
+ * @author Carsten Haubold, KNIME GmbH, Konstanz, Germany
  */
 public class BoundingBoxPortObject extends AbstractSimplePortObject {
+
+    /** Accessor for the type */
+    @SuppressWarnings("hiding")
+    public static PortType TYPE = PortTypeRegistry.getInstance().getPortType(BoundingBoxPortObject.class);
+
     /**
      * Immutable 3D point record used for bounding box corners.
      * @param x X coordinate
