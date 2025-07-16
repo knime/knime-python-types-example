@@ -49,7 +49,7 @@
 package org.knime.pythonportexample.core.node;
 
 import org.knime.core.webui.node.dialog.defaultdialog.DefaultNodeSettings;
-import org.knime.core.webui.node.dialog.defaultdialog.widget.Widget;
+import org.knime.node.parameters.Widget;
 
 /**
  * The settings of the Bounding Box Creator Node
