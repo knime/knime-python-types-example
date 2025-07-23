@@ -48,8 +48,8 @@
  */
 package org.knime.pythonportexample.core.node;
 
-import org.knime.core.webui.node.dialog.defaultdialog.DefaultNodeSettings;
-import org.knime.core.webui.node.dialog.defaultdialog.widget.Widget;
+import org.knime.node.parameters.NodeParameters;
+import org.knime.node.parameters.Widget;
 
 /**
  * The settings of the Bounding Box Creator Node
@@ -57,7 +57,7 @@ import org.knime.core.webui.node.dialog.defaultdialog.widget.Widget;
  * @author Carsten Haubold, KNIME GmbH, Konstanz, Germany
  */
 @SuppressWarnings("restriction")
-public class BoundingBoxCreatorNodeSettings implements DefaultNodeSettings {
+public class BoundingBoxCreatorNodeSettings implements NodeParameters {
 
     @Widget(title = "Min X", description = "The lower X coordinate of the bounding box")
     double minX = 0;
