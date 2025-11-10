@@ -27,7 +27,6 @@ try {
                     repositories: [
                         'knime-pythontypeexample',
                         'knime-python',
-                        'knime-scripting-editor',
                         'knime-python-legacy',
                         'knime-conda',
                         'knime-filehandling',
