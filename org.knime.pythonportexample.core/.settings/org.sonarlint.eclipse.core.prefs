@@ -2,6 +2,6 @@ autoEnabled=true
 bindingSuggestionsDisabled=false
 eclipse.preferences.version=1
 idePrefixKey=
-projectKey=KNIME_knime-pythonportexample
+projectKey=knime_knime-pythonportexample
 serverId=SonarCloud
 sqPrefixKey=org.knime.pythonportexample.core

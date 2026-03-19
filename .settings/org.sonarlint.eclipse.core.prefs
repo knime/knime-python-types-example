@@ -2,6 +2,6 @@ autoEnabled=true
 bindingSuggestionsDisabled=false
 eclipse.preferences.version=1
 idePrefixKey=
-projectKey=KNIME_knime-pythontypeexample
+projectKey=knime_knime-pythontypeexample
 serverId=SonarCloud
 sqPrefixKey=org.knime.pythontypeexample.core/lib/fetch_jars
